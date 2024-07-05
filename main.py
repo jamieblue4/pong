@@ -1,4 +1,5 @@
 import turtle
+import os
 
 wn = turtle.Screen()
 wn.title("Pong")
@@ -87,10 +88,13 @@ while True:
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1
+        os.system("afplay bounce.wav&")
 
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1
+        os.system("afplay bounce.wav&")
+
 
     if ball.xcor() > 390:
         ball.goto(0, 0)
@@ -106,11 +110,28 @@ while True:
         pen.clear()
         pen.write(f"Player A: {score_a} Player B: {score_b}", align="center", font=("Courier", 24, "normal"))
 
+
+    # paddles don't move out of bounds
+    if paddle_a.ycor() > 250:
+        paddle_a.sety(250)
+
+    if paddle_a.ycor() < -250:
+        paddle_a.sety(-250)
+
+    if paddle_b.ycor() > 250:
+        paddle_b.sety(250)
+
+    if paddle_b.ycor() < -250:
+        paddle_b.sety(-250)
+
     # paddle and ball collisions
     if ball.xcor() > 340 and ball.xcor() < 350 and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 40):
         ball.setx(340)
         ball.dx *= -1
+        os.system("afplay bounce.wav&")
+
 
     if ball.xcor() < -340 and ball.xcor() < -350 and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 40):
         ball.setx(-340)
         ball.dx *= -1
+        os.system("afplay bounce.wav&")
